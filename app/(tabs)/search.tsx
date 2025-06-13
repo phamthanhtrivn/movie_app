@@ -31,7 +31,7 @@ const Search = () => {
       } else {
         reset();
       }
-    }, 500);
+    }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
