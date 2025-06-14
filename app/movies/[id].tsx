@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "@/constants/icons";
 import { fetchMovieDetails } from "@/services/api";
 import useFetch from "@/services/useFetch";
+import { saveMovie } from "@/services/appwrite";
 
 interface MovieInfoProps {
   label: string;
@@ -34,6 +35,18 @@ const Details = () => {
   const { data: movie, loading } = useFetch(() =>
     fetchMovieDetails(id as string)
   );
+
+  const handleSavedMovie = async () => {
+    if (movie) {
+      const result = await saveMovie(movie)
+      if (result) {
+        alert("Movie saved successfully!");
+      }
+      else {
+        alert("Failed to save movie. Movie might already be saved!");
+      }
+    }
+  }
 
   if (loading)
     return (
@@ -64,12 +77,32 @@ const Details = () => {
         </View>
 
         <View className="flex-col items-start justify-center px-5 mt-5">
-          <Text className="text-xl font-bold text-white">{movie?.title}</Text>
-          <View className="flex-row items-center mt-2 gap-x-1">
-            <Text className="text-sm text-light-200">
-              {movie?.release_date?.split("-")[0]} •
-            </Text>
-            <Text className="text-sm text-light-200">{movie?.runtime}m</Text>
+          <View className="flex flex-row items-start justify-between w-full">
+            <View className="w-3/4">
+              <Text className="text-xl font-bold text-white">
+                {movie?.title}
+              </Text>
+              <View className="flex-row items-center mt-2 gap-x-1">
+                <Text className="text-sm text-light-200">
+                  {movie?.release_date?.split("-")[0]} •
+                </Text>
+                <Text className="text-sm text-light-200">
+                  {movie?.runtime}m
+                </Text>
+              </View>
+            </View>
+            <View>
+              <TouchableOpacity onPress={handleSavedMovie} className="flex flex-row items-center justify-center gap-2 px-4 py-2 rounded-lg bg-accent">
+                <Image
+                  source={icons.save}
+                  className="size-5"
+                  tintColor="#fff"
+                />
+                <Text className="text-base font-semibold text-white">
+                  Saved
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <View className="flex-row items-center px-2 py-1 mt-2 rounded-md bg-dark-100 gap-x-1">
