@@ -66,7 +66,7 @@ movie_app/ <br />
 ## 📷 Hình ảnh minh họa
 
 ### 🏠 Home Screen
-![Home](./assets/screenshots/user-home.jpg)
+![Home](./assets/screenshots/user-home.png)
 
 ### 👤 Profile Screen
 ![Profile](./assets/screenshots/user-profile.png)

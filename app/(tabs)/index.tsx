@@ -80,7 +80,7 @@ export default function Index() {
                 renderItem={({ item, index }) => (
                   <TrendingCard index={index} movie={item} />
                 )}
-                keyExtractor={(item) => item.movie_id.toString()}
+                keyExtractor={(_, index) => index.toString()}
               />
 
               <Text className="mt-5 mb-3 text-lg font-bold text-white">
